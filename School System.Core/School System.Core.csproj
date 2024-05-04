@@ -13,4 +13,14 @@
     <ProjectReference Include="..\School System.Service\School System.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Students\Commands\Handlers\" />
+    <Folder Include="Features\Students\Commands\DTOs\" />
+    <Folder Include="Features\Students\Commands\Validations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
 </Project>

@@ -14,11 +14,11 @@ namespace School_System.Infrastructure.Context
 
         }
 
-        DbSet<Student> Students { get; set; }
-        DbSet<Department> Departments { get; set; }
-        DbSet<Subject> Subjects { get; set; }
-        DbSet<DepartmentSubject> DepartmentSubjects { get; set; }
-        DbSet<StudentSubjects> StudentSubjects { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<DepartmentSubject> DepartmentSubjects { get; set; }
+        public DbSet<StudentSubjects> StudentSubjects { get; set; }
  
     }
 }
