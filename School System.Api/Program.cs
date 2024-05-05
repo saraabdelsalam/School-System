@@ -15,6 +15,10 @@ namespace School_System.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -27,12 +31,7 @@ namespace School_System.Api
                             .ServiceDependencies()
                             .CoreDependencies();
             #endregion
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            builder.Services.AddControllersWithViews();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -45,6 +44,7 @@ namespace School_System.Api
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseRouting();
+            app.MapControllers();
             app.Run();
         }
     }

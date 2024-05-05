@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using School_System.Core.Features.Students.Queries.Models;
 
 namespace School_System.Api.Controllers
@@ -15,11 +16,15 @@ namespace School_System.Api.Controllers
             _mediator = mediator;
         }
         [HttpGet("/Students/List")]
-        public async Task<IActionResult> GetAllStudents() 
+        public async Task<IActionResult> GetAllStudents()
         {
             var response = await _mediator.Send(new GetStudentsListQuery());
+            if (response.Count() < 1)
+                return NoContent(); 
+
             return Ok(response);
-            
+
+
         }
 
     }
