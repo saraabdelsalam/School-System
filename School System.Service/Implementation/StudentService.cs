@@ -31,5 +31,11 @@ namespace School_System.Service.Implementation
             var query = await _studentRepository.GetAllAsync(x => x.Department);
             return await query.ToListAsync();
         }
+
+        public async Task<bool> AddStudent(Student student)
+        {
+            var reposone = await _studentRepository.AddAsync(student);
+            return reposone is Student;
+        }
     }
 }

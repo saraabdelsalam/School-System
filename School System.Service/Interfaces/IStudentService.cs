@@ -11,5 +11,6 @@ namespace School_System.Service.Interfaces
     {
         Task<List<Student>> GetAllStudents();
         Task<Student> GetStudentById(int id);
+        Task<bool> AddStudent(Student student);
     }
 }
