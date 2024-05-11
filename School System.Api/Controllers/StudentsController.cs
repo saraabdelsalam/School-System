@@ -6,7 +6,7 @@ using School_System.Core.Features.Students.Queries.Models;
 
 namespace School_System.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class StudentsController : ControllerBase
     {
@@ -15,17 +15,27 @@ namespace School_System.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet("/Students/List")]
+        [HttpGet("List")]
         public async Task<IActionResult> GetAllStudents()
         {
             var response = await _mediator.Send(new GetStudentsListQuery());
             if (response.Count() < 1)
-                return NoContent(); 
+                return NoContent();
 
             return Ok(response);
 
 
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetStudentById(string id)
+        {
+            var response = await _mediator.Send(new GetSingleStudentQuery(id));
+            if (response is null)
+                return NoContent();
 
+            return Ok(response);
+
+
+        }
     }
 }

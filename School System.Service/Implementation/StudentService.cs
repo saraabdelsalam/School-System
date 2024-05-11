@@ -21,7 +21,8 @@ namespace School_System.Service.Implementation
 
         public async Task<Student> GetStudentById(string id)
         {
-            return await _studentRepository.GetByIdAsync(id);
+            var student = _studentRepository.Find(x => x.Id == id).Include(x => x.Department).FirstOrDefault();
+            return student;
 
         }
 
