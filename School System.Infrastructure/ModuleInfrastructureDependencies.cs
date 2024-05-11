@@ -8,6 +8,7 @@ namespace School_System.Infrastructure
     {
         public static IServiceCollection InfrastructureDependencies(this IServiceCollection services)
         {
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IStudentRepository, StudentRepository>();
             return services;
         }

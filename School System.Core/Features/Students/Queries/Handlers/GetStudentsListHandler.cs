@@ -22,7 +22,7 @@ namespace School_System.Core.Features.Students.Queries.Handlers
         #endregion
         public async Task<List<GetStudentListResponse>> Handle(GetStudentsListQuery request, CancellationToken cancellationToken)
         {
-            var studentList = await _studentService.GetAllStudentsAsync();
+            var studentList = await _studentService.GetAllStudents();
             var studentListMapped = _mapper.Map<List<GetStudentListResponse>>(studentList);
             return studentListMapped;
         }

@@ -1,4 +1,6 @@
-﻿using School_System.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using School_System.Data.Entities;
+using School_System.Infrastructure.Implementation;
 using School_System.Infrastructure.Interfaces;
 using School_System.Service.Interfaces;
 using System;
@@ -11,15 +13,22 @@ namespace School_System.Service.Implementation
 {
     public class StudentService : IStudentService
     {
-        private readonly IStudentRepository _studentRepository;   
-        public StudentService(IStudentRepository studentRepository)
+        private readonly IGenericRepository<Student> _studentRepository;
+        public StudentService(IGenericRepository<Student> studentRepository)
         {
             _studentRepository = studentRepository;
         }
 
-        public async Task<List<Student>> GetAllStudentsAsync()
+        public async Task<Student> GetStudentById(string id)
         {
-          return await _studentRepository.GetAllStudents();
+            return await _studentRepository.GetByIdAsync(id);
+
+        }
+
+        public async Task<List<Student>> GetAllStudents()
+        {
+            var query = await _studentRepository.GetAllAsync(x => x.Department);
+            return await query.ToListAsync();
         }
     }
 }
