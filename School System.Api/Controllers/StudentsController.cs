@@ -27,7 +27,7 @@ namespace School_System.Api.Controllers
 
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStudentById(string id)
+        public async Task<IActionResult> GetStudentById(int id)
         {
             var response = await _mediator.Send(new GetSingleStudentQuery(id));
             if (response is null)

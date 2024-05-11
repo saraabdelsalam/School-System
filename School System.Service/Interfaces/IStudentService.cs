@@ -10,6 +10,6 @@ namespace School_System.Service.Interfaces
     public interface IStudentService
     {
         Task<List<Student>> GetAllStudents();
-        Task<Student> GetStudentById(string id);
+        Task<Student> GetStudentById(int id);
     }
 }

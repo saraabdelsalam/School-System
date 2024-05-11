@@ -10,8 +10,8 @@ namespace School_System.Core.Features.Students.Queries.Models
 {
     public class GetSingleStudentQuery : IRequest<GetStudentResponse>
     {
-        public string id {  get; set; }
-        public GetSingleStudentQuery(string id)
+        public int id {  get; set; }
+        public GetSingleStudentQuery(int id)
         {
             this.id = id;
         }
