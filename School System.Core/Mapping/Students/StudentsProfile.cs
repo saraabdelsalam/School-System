@@ -10,6 +10,7 @@ namespace School_System.Core.Mapping.Students
         public StudentsProfile()
         {
             GetStudentListMapping();
+            GetStudentBIydMapping();
         }
     }
 }

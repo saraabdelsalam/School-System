@@ -40,7 +40,7 @@ namespace School_System.Infrastructure.Implementation
 
             return includeSoftDeleted ? _dbContext.Set<T>().IgnoreQueryFilters().Where(predicate) : _dbContext.Set<T>().Where(predicate);
         }
-        public virtual async Task<T> GetByIdAsync(string id)
+        public async Task<T> GetByIdAsync(string id)
         {
 
             return await _dbContext.Set<T>().FindAsync(id);
