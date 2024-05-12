@@ -1,7 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using School_System.Core.Features.Students.Commands.Models;
 using School_System.Core.Features.Students.Queries.Models;
 
@@ -32,18 +30,18 @@ namespace School_System.Api.Controllers
         {
             var response = await _mediator.Send(new GetSingleStudentQuery(id));
             if (response is null)
+            {
                 return NoContent();
+            }
 
             return Ok(response);
-
-
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentCommand command)
         {
-           var response =await _mediator.Send(command);
-            if(response == "Failed")
+            var response = await _mediator.Send(command);
+            if (response == "Failed")
             {
                 return BadRequest(response);
             }

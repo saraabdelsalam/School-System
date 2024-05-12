@@ -2,7 +2,6 @@
 using MediatR;
 using School_System.Core.Features.Students.Queries.Models;
 using School_System.Core.Features.Students.Queries.Results;
-using School_System.Data.Entities;
 using School_System.Service.Interfaces;
 
 namespace School_System.Core.Features.Students.Queries.Handlers

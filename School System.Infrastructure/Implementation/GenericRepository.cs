@@ -1,17 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using School_System.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using School_System.Infrastructure.Context;
 using System.Linq.Expressions;
+using School_System.Data.Common;
 
 namespace School_System.Infrastructure.Implementation
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T, Tid> : IGenericRepository<T, Tid> where T : BaseEntity<Tid>
     {
         #region Vars / Props
 
@@ -40,10 +36,16 @@ namespace School_System.Infrastructure.Implementation
 
             return includeSoftDeleted ? _dbContext.Set<T>().IgnoreQueryFilters().Where(predicate) : _dbContext.Set<T>().Where(predicate);
         }
-        public async Task<T> GetByIdAsync(string id)
+        public async Task<T> GetByIdAsync(Tid id, params Expression<Func<T, object>>[] includes)
         {
+            IQueryable<T> query = _dbContext.Set<T>().Where(i => i.Id.Equals(id));
 
-            return await _dbContext.Set<T>().FindAsync(id);
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
         public virtual async Task AddRangeAsync(ICollection<T> entities)
         {
@@ -117,8 +119,8 @@ namespace School_System.Infrastructure.Implementation
 
         public virtual async Task<IQueryable<T>> GetAllAsync()
         {
-            
-            return  _dbContext.Set<T>().AsQueryable();
+
+            return _dbContext.Set<T>().AsQueryable();
         }
 
         public async Task<IQueryable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)

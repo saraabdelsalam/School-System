@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace School_System.Data.Common
 {
-    public abstract class BaseEntity<T> where T : notnull
+    public abstract class BaseEntity<Tid> where Tid : notnull
     {
-        public T Id { get; set; } = default!;
+        public Tid Id { get; set; } = default!;
     }
 }

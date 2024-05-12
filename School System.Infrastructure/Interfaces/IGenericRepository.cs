@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using School_System.Data.Common;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace School_System.Infrastructure.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T, Tid> where T : BaseEntity<Tid> where Tid : notnull
     {
         Task<T> AddAsync(T entity);
         Task AddRangeAsync(ICollection<T> entities);
@@ -19,7 +16,7 @@ namespace School_System.Infrastructure.Interfaces
         IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool disableTracking = true, bool includeSoftDeleted = false);
         Task<IQueryable<T>> GetAllAsync();
         Task<IQueryable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
-        Task<T> GetByIdAsync(string id);
+        Task<T> GetByIdAsync(Tid id, params Expression<Func<T, object>>[] includes);
         Task SaveChangesAsync();
         IDbContextTransaction BeginTransaction();
         void Commit();
