@@ -24,10 +24,6 @@ namespace School_System.Infrastructure.Implementation
         #endregion
 
 
-        #region Methods
-
-        #endregion
-
         #region Actions
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool disableTracking = true, bool includeSoftDeleted = false)
         {

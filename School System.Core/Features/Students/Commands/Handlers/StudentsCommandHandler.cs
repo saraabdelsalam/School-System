@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace School_System.Core.Features.Students.Commands.Handlers
 {
     public class StudentsCommandHandler : IRequestHandler<AddStudentCommand, string>,
-                                          IRequestHandler<EditStudentCommand, bool>
+                                          IRequestHandler<EditStudentCommand, bool>,
+                                          IRequestHandler<DeleteStudentCommand, bool>
     {
         #region Fields
         private readonly IStudentService _studentService;
@@ -42,6 +43,11 @@ namespace School_System.Core.Features.Students.Commands.Handlers
                 return await _studentService.EditStudent(studentMapped);
             }
                 return false;          
+        }
+
+        public async Task<bool> Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
+        {
+            return await _studentService.DeleteStudent(request.Id);
         }
         #endregion
     }

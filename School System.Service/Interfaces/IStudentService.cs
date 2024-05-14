@@ -14,5 +14,6 @@ namespace School_System.Service.Interfaces
         Task<bool> IsStudentExists(int id);
         Task<bool> AddStudent(Student student);
         Task<bool> EditStudent(Student editedStudent);
+        Task<bool> DeleteStudent(int id);       
     }
 }

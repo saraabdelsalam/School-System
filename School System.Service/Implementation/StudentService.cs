@@ -45,5 +45,15 @@ namespace School_System.Service.Implementation
             }
             return true;
         }
+        public async Task<bool> DeleteStudent(int id)
+        {
+            var student = await _studentRepository.GetByIdAsync(id);
+            if(student is not null)
+            {
+                await _studentRepository.DeleteAsync(student);
+                return true;
+            }
+            return false;
+        }
     }
 }
