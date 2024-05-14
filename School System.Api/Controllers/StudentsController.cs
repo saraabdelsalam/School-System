@@ -47,5 +47,16 @@ namespace School_System.Api.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Edit(EditStudentCommand command)
+        {
+            var response = await _mediator.Send(command);
+            if (response == false)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

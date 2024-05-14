@@ -36,9 +36,16 @@ namespace School_System.Infrastructure.Implementation
 
             return includeSoftDeleted ? _dbContext.Set<T>().IgnoreQueryFilters().Where(predicate) : _dbContext.Set<T>().Where(predicate);
         }
-        public async Task<T> GetByIdAsync(Tid id, params Expression<Func<T, object>>[] includes)
+        public async Task<T> GetByIdAsync(Tid id, bool disableTracking = true, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _dbContext.Set<T>().Where(i => i.Id.Equals(id));
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (disableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            query = query.Where(i => i.Id.Equals(id));
 
             foreach (var include in includes)
             {

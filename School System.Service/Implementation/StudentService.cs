@@ -15,7 +15,7 @@ namespace School_System.Service.Implementation
 
         public async Task<Student> GetStudentById(int id)
         {
-            var student = await _studentRepository.GetByIdAsync(id, s => s.Department);
+            var student = await _studentRepository.GetByIdAsync(id, true, s => s.Department);
             return student;
         }
 
@@ -29,6 +29,21 @@ namespace School_System.Service.Implementation
         {
             var reposone = await _studentRepository.AddAsync(student);
             return reposone is Student;
+        }
+        public async Task<bool> EditStudent(Student editedStudent)
+        {
+            await _studentRepository.UpdateAsync(editedStudent);
+            return true;
+        }
+
+        public async Task<bool> IsStudentExists(int id)
+        {
+            var student = await _studentRepository.GetByIdAsync(id);
+            if (student is null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

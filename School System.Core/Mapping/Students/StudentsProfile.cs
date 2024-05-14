@@ -12,6 +12,7 @@ namespace School_System.Core.Mapping.Students
             GetStudentListMapping();
             GetStudentBIydMapping();
             AddStudentMapping();
+            EditStudentMapping();
         }
     }
 }

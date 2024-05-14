@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace School_System.Core.Features.Students.Commands.Handlers
 {
-    public class StudentsCommandHandler : IRequestHandler<AddStudentCommand, string>
+    public class StudentsCommandHandler : IRequestHandler<AddStudentCommand, string>,
+                                          IRequestHandler<EditStudentCommand, bool>
     {
         #region Fields
         private readonly IStudentService _studentService;
@@ -30,6 +31,17 @@ namespace School_System.Core.Features.Students.Commands.Handlers
             var student = _mapper.Map<Student>(request);
             var response = await _studentService.AddStudent(student);
             return response is true? "added Successfully" : "Failed";
+        }
+
+        public async Task<bool> Handle(EditStudentCommand request, CancellationToken cancellationToken)
+        {
+            var IsStudentExists = await _studentService.IsStudentExists(request.StudentId);
+            if (IsStudentExists)
+            {
+                var studentMapped = _mapper.Map<Student>(request);
+                return await _studentService.EditStudent(studentMapped);
+            }
+                return false;          
         }
         #endregion
     }
