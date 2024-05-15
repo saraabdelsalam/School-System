@@ -22,9 +22,15 @@ namespace School_System.Api.Controllers
                 return NoContent();
 
             return Ok(response);
-
-
         }
+
+        [HttpGet("Paginated")]
+        public async Task<IActionResult> GetAllStudentsPaginated([FromQuery] GetStudentPaginatedListQuery query)
+        {
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudentById(int id)
         {

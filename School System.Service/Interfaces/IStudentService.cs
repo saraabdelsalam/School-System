@@ -10,6 +10,7 @@ namespace School_System.Service.Interfaces
     public interface IStudentService
     {
         Task<List<Student>> GetAllStudents();
+        Task<IQueryable<Student>> GetAllStudentsPaginated(string? search);
         Task<Student> GetStudentById(int id);
         Task<bool> IsStudentExists(int id);
         Task<bool> AddStudent(Student student);

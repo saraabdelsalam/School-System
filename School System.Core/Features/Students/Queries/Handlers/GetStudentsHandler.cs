@@ -2,12 +2,16 @@
 using MediatR;
 using School_System.Core.Features.Students.Queries.Models;
 using School_System.Core.Features.Students.Queries.Results;
+using School_System.Core.Wrapper;
+using School_System.Data.Entities;
 using School_System.Service.Interfaces;
+using System.Linq.Expressions;
 
 namespace School_System.Core.Features.Students.Queries.Handlers
 {
     public class GetStudentsHandler : IRequestHandler<GetStudentsListQuery, List<GetStudentResponse>>,
-                                      IRequestHandler<GetSingleStudentQuery, GetStudentResponse>
+                                      IRequestHandler<GetSingleStudentQuery, GetStudentResponse>,
+                                      IRequestHandler<GetStudentPaginatedListQuery, PaginatedResult<GetStudentPaginatedListResponse>>
     {
         #region Fields
         private readonly IStudentService _studentService;
@@ -32,6 +36,14 @@ namespace School_System.Core.Features.Students.Queries.Handlers
             var student = await _studentService.GetStudentById(request.id);
             var response = _mapper.Map<GetStudentResponse>(student);
             return response;
+        }
+
+        public async Task<PaginatedResult<GetStudentPaginatedListResponse>> Handle(GetStudentPaginatedListQuery request, CancellationToken cancellationToken)
+        {
+            Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Name, e.Phone, e.Address, e.Department.DepartmentName);
+            var students = await _studentService.GetAllStudentsPaginated(request.Search);
+            var PaginatedResult = await students.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            return PaginatedResult;
         }
     }
 }
