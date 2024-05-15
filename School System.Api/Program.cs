@@ -7,6 +7,7 @@ using School_System.Service;
 using School_System.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using School_System.Core.Middleware;
 
 namespace School_System.Api
 {
@@ -41,6 +42,7 @@ namespace School_System.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseRouting();
