@@ -1,7 +1,5 @@
-﻿
-using School_System.Data.Common;
+﻿using School_System.Data.Common;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace School_System.Data.Entities
 {
@@ -15,5 +13,7 @@ namespace School_System.Data.Entities
         public string Phone { get; set; }
         public int? DepartmentId { get; set; }
         public virtual Department Department { get; set; }
+        public virtual ICollection<StudentSubjects> StudentSubject { get; set; }
+
     }
 }

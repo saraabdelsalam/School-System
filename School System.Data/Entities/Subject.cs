@@ -1,5 +1,6 @@
 ﻿using School_System.Data.Common;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace School_System.Data.Entities
 {
@@ -9,6 +10,7 @@ namespace School_System.Data.Entities
         {
             StudentsSubjects = new HashSet<StudentSubjects>();
             DepartmentsSubjects = new HashSet<DepartmentSubject>();
+            Ins_Subjects = new HashSet<Instructor_Subjects>();
         }
 
         [StringLength(500)]
@@ -16,5 +18,8 @@ namespace School_System.Data.Entities
         public DateTime Period { get; set; }
         public virtual ICollection<StudentSubjects> StudentsSubjects { get; set; }
         public virtual ICollection<DepartmentSubject> DepartmentsSubjects { get; set; }
+
+        [InverseProperty("Subjects")]
+        public virtual ICollection<Instructor_Subjects> Ins_Subjects { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using School_System.Data.Entities;
+using System.Reflection;
 
 namespace School_System.Infrastructure.Context
 {
@@ -19,6 +20,11 @@ namespace School_System.Infrastructure.Context
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<DepartmentSubject> DepartmentSubjects { get; set; }
         public DbSet<StudentSubjects> StudentSubjects { get; set; }
- 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }
