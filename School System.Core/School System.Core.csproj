@@ -21,4 +21,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Department\Commands\Handlers\" />
+    <Folder Include="Features\Department\Commands\Models\" />
+    <Folder Include="Features\Department\Commands\Validations\" />
+    <Folder Include="Features\Department\Queries\Handlers\" />
+    <Folder Include="Features\Department\Queries\Models\" />
+    <Folder Include="Features\Department\Queries\Results\" />
+  </ItemGroup>
+
 </Project>
