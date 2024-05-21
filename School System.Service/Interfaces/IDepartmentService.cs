@@ -5,8 +5,7 @@ namespace School_System.Service.Interfaces
 {
     public interface IDepartmentService
     {
-        Task<List<Department>> GetAllDepartments();
-        Task<IQueryable<Department>> GetAllStudentsPaginated(string? search);
+        Task<IQueryable<Department>> GetAllDepartments(string? search);
         Task<Department> GetDepartmentById(int id);
         Task<bool> AddDepartment(Department department);
         Task<bool> EditDepartment(Department editedDepartment);

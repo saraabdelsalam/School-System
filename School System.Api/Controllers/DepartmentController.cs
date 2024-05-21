@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using School_System.Core.Features.Departments.Queries.Models;
+using School_System.Core.Features.Students.Queries.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace School_System.Api.Controllers
 {
@@ -7,5 +10,33 @@ namespace School_System.Api.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
+        #region Fields
+        private readonly IMediator _mediator;
+        #endregion
+        #region Constructors
+        public DepartmentController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+        #endregion
+        #region Actions
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDepartmentById(int id)
+        {
+            var response = await _mediator.Send(new GetSingleDepartmentQuery(id));
+            if (response is null)
+            {
+                return NoContent();
+            }
+
+            return Ok(response);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllDepartments([FromQuery] GetAllDepartmentsQuery query)
+        {
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+        #endregion
     }
 }
