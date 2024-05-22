@@ -46,6 +46,24 @@ namespace School_System.Api.Controllers
             }
             return Ok(response);
         }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(DeleteDepartmentCommand deleteDepartmentCommand)
+        {
+            var response = await _mediator.Send(deleteDepartmentCommand);
+            if (response == false)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit(EditDepartmentCommand editDepartmentCommand)
+        {
+            var response = await _mediator.Send(editDepartmentCommand);
+            if (response == false)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
         #endregion
     }
 }

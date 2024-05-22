@@ -8,6 +8,7 @@ namespace School_System.Core.Mapping.Departments
         {
             GetDepartmentMapping();
             AddDepartmentMapping();
+            EditDepartmentMapping();
         }
     }
 }

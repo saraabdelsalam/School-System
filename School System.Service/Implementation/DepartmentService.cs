@@ -26,14 +26,21 @@ namespace School_System.Service.Implementation
             return response is Department;
         }
 
-        public Task<bool> DeleteDepartment(int id)
+        public async Task<bool> DeleteDepartment(int id)
         {
-            throw new NotImplementedException();
+            var department = await _departmentRepository.GetByIdAsync(id);
+            if (department is not null)
+            {
+                await _departmentRepository.DeleteAsync(department);
+                return true;
+            }
+            return false;
         }
 
-        public Task<bool> EditDepartment(Department editedDepartment)
+        public async Task<bool> EditDepartment(Department editedDepartment)
         {
-            throw new NotImplementedException();
+            await _departmentRepository.UpdateAsync(editedDepartment);
+            return true;
         }
         public async Task<IQueryable<Department>> GetAllDepartments(string? search)
         {
