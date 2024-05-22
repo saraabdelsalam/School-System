@@ -20,9 +20,10 @@ namespace School_System.Service.Implementation
         }
         #endregion
         #region Methods
-        public Task<bool> AddDepartment(Department department)
+        public async Task<bool> AddDepartment(Department department)
         {
-            throw new NotImplementedException();
+            var response = await _departmentRepository.AddAsync(department);
+            return response is Department;
         }
 
         public Task<bool> DeleteDepartment(int id)
@@ -36,7 +37,7 @@ namespace School_System.Service.Implementation
         }
         public async Task<IQueryable<Department>> GetAllDepartments(string? search)
         {
-            var departments = _departmentRepository.Find(d=>d.Id !=0).Include(d => d.Instructor)
+            var departments = _departmentRepository.Find(d => d.Id != 0).Include(d => d.Instructor)
                                                   .Include(d => d.Instructors)
                                                   .Include(d => d.DepartmentSubjects).ThenInclude(d => d.Subjects).AsQueryable();
             if (!string.IsNullOrEmpty(search))

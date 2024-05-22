@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using School_System.Core.Features.Departments.Commands.Models;
 using School_System.Core.Features.Departments.Queries.Models;
-using School_System.Core.Features.Students.Queries.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace School_System.Api.Controllers
 {
@@ -35,6 +34,16 @@ namespace School_System.Api.Controllers
         public async Task<IActionResult> GetAllDepartments([FromQuery] GetAllDepartmentsQuery query)
         {
             var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(AddDepartmentCommand command)
+        {
+            var response = await _mediator.Send(command);
+            if (response == "Failed")
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
         #endregion
