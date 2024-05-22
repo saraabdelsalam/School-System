@@ -38,7 +38,8 @@ namespace School_System.Core.Features.Departments.Queries.Handlers
 
         public async Task<PaginatedResult<GetAllDepartmentsResponse>> Handle(GetAllDepartmentsQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Department, GetAllDepartmentsResponse>> expression = e => new GetAllDepartmentsResponse(e.Id, e.DepartmentName, e.Instructor.Name, (List<Instructors>)e.Instructors, (List<Subjects>)e.DepartmentSubjects.Select(s => s.Subjects));
+
+            Expression<Func<Department, GetAllDepartmentsResponse>> expression = e => new GetAllDepartmentsResponse(e.Id, e.DepartmentName, e.Instructor.Name,e.Instructors.Select(s=> new Instructors { Id=s.Id, Name=s.Name}).ToList(),e.DepartmentSubjects.Select(s => new Subjects { Id = s.Subjects.Id, SubjectName=s.Subjects.SubjectName}).ToList());
             var departments = await _departmentService.GetAllDepartments(request.Search);
             var PaginatedResult = await departments.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             return PaginatedResult;
