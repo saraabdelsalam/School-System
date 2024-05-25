@@ -59,6 +59,7 @@ namespace School_System.Api
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();
