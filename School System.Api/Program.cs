@@ -8,6 +8,7 @@ using School_System.Api.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using School_System.Core.Middleware;
+using Microsoft.Extensions.Options;
 
 namespace School_System.Api
 {
@@ -32,6 +33,18 @@ namespace School_System.Api
                             .ServiceDependencies()
                             .CoreDependencies();
             #endregion
+            #region CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                     policy =>
+                     {
+                         policy.AllowAnyOrigin();
+                         policy.AllowAnyHeader();
+                         policy.AllowAnyMethod();
+                     });
+            });
+            #endregion
             builder.Services.AddControllersWithViews();
             var app = builder.Build();
 
@@ -44,8 +57,9 @@ namespace School_System.Api
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseHttpsRedirection();
-            app.UseAuthorization();
             app.UseRouting();
+            app.UseCors();
+            app.UseAuthorization();
             app.MapControllers();
             app.Run();
         }
