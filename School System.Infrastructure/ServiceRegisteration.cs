@@ -14,7 +14,6 @@ public static class ServiceRegisteration
             option.Password.RequireLowercase = true;
             option.Password.RequireNonAlphanumeric = true;
             option.Password.RequireUppercase = true;
-            option.Password.RequiredLength = 6;
             option.Password.RequiredUniqueChars = 1;
 
             // Lockout settings.
