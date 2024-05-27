@@ -21,4 +21,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\ApplicationUsers\Queries\Handlers\" />
+    <Folder Include="Features\ApplicationUsers\Queries\Models\" />
+    <Folder Include="Features\ApplicationUsers\Queries\Results\" />
+    <Folder Include="Mapping\ApplicationUsers\QueryMapping\" />
+  </ItemGroup>
+
 </Project>
