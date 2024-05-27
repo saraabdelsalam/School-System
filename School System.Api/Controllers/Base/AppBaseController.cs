@@ -1,12 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using School_System.Core.Bases;
 using System.Net;
 
 namespace School_System.Api.Controllers.Base
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class AppBaseController : ControllerBase
     {

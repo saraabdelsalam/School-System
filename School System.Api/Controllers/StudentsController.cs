@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using School_System.Api.Controllers.Base;
 using School_System.Core.Features.Students.Commands.Models;
 using School_System.Core.Features.Students.Queries.Models;
 
@@ -7,17 +8,13 @@ namespace School_System.Api.Controllers
 {
     [Route("api/[controller]/")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentsController : AppBaseController
     {
-        private readonly IMediator _mediator;
-        public StudentsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+       
         [HttpGet("List")]
         public async Task<IActionResult> GetAllStudents()
         {
-            var response = await _mediator.Send(new GetStudentsListQuery());
+            var response = await Mediator.Send(new GetStudentsListQuery());
             if (response.Count() < 1)
                 return NoContent();
 
@@ -27,14 +24,14 @@ namespace School_System.Api.Controllers
         [HttpGet("Paginated")]
         public async Task<IActionResult> GetAllStudentsPaginated([FromQuery] GetStudentPaginatedListQuery query)
         {
-            var response = await _mediator.Send(query);
+            var response = await Mediator.Send(query);
             return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudentById(int id)
         {
-            var response = await _mediator.Send(new GetSingleStudentQuery(id));
+            var response = await Mediator.Send(new GetSingleStudentQuery(id));
             if (response is null)
             {
                 return NoContent();
@@ -46,7 +43,7 @@ namespace School_System.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await Mediator.Send(command);
             if (response == "Failed")
             {
                 return BadRequest(response);
@@ -57,7 +54,7 @@ namespace School_System.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit(EditStudentCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await Mediator.Send(command);
             if (response == false)
             {
                 return BadRequest(response);
@@ -68,7 +65,7 @@ namespace School_System.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteStudentCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await Mediator.Send(command);
             if (response == false)
             {
                 return BadRequest(response);
