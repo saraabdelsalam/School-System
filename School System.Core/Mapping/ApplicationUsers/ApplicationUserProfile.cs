@@ -7,6 +7,7 @@ namespace School_System.Core.Mapping.ApplicationUsers
         public ApplicationUserProfile()
         {
             RegisterUserMapping();
+            UpdateUserMapping();
         }
     }
 }
