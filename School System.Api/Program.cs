@@ -30,6 +30,7 @@ namespace School_System.Api
                 );
             #region DI
             builder.Services.InfrastructureDependencies()
+                            .AddServiceRegisteration()
                             .ServiceDependencies()
                             .CoreDependencies();
             #endregion
